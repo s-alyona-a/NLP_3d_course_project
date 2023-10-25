@@ -2,18 +2,11 @@
 
 body{
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-  /* background-image: linear-gradient(to right top,#ef32d9,#89fffd); */
   height: 100vh;
-	/* background-color: #E7E9F5; */
-	font-family: 'Heebo', sans-serif;
-  /* background-image: linear-gradient(to right top,#D91B23,#124FEB);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center */
+  font-family: 'Heebo', sans-serif;
+
 }
 .card{
-	/* width: 1000px; */
 	border: none;
 	border-radius: 20px;
 }
@@ -42,7 +35,6 @@ input.form-control:focus{
 	background: #F5F8FD;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
-	/* width: 97px; */
 }
 .flex-row{
 	border: 1px solid #F2F2F4;
@@ -59,21 +51,8 @@ span.mb-2{
 h5 span{
 	color: #869099;
 }
-
 .search_title{
   font-size: 22px;
   font-weight: 900;
-  /* text-align: center; */
   color: #ff8b88;
 }
-/* @media screen and (max-width: 450px){
-	.card{
-		display: flex;
-		justify-content: center;
-		text-align: center;
-	}
-	.price{
-		border: none;
-		margin: 0 auto;
-	}
-} */

@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');
+
+body{
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  /* background-image: linear-gradient(to right top,#ef32d9,#89fffd); */
+  height: 100vh;
+	/* background-color: #E7E9F5; */
+	font-family: 'Heebo', sans-serif;
+  /* background-image: linear-gradient(to right top,#D91B23,#124FEB);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center */
+}
+.card{
+	/* width: 1000px; */
+	border: none;
+	border-radius: 20px;
+}
+.form-control{
+	border-radius: 7px;
+	border: 1.5px solid #E3E6ED;
+}
+input.form-control:focus{
+	box-shadow: none;
+	border: 1.5px solid #E3E6ED;
+	background-color: #F7F8FD;
+	letter-spacing: 1px;
+}
+.btn-primary{
+	background-color: #5878FF!important;
+	border-radius: 7px;
+}
+.btn-primary:focus{
+	box-shadow: none;
+}
+.text{
+	font-size: 13px;
+	color: #9CA1A4;
+}
+.price{
+	background: #F5F8FD;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	/* width: 97px; */
+}
+.flex-row{
+	border: 1px solid #F2F2F4;
+	border-radius: 10px; 
+	margin: 0 1px 0;
+}
+.flex-column p{
+	font-size: 14px;
+}
+span.mb-2{
+	font-size: 12px;
+	color: #8896BD;
+}
+h5 span{
+	color: #869099;
+}
+
+.search_title{
+  font-size: 22px;
+  font-weight: 900;
+  /* text-align: center; */
+  color: #ff8b88;
+}
+/* @media screen and (max-width: 450px){
+	.card{
+		display: flex;
+		justify-content: center;
+		text-align: center;
+	}
+	.price{
+		border: none;
+		margin: 0 auto;
+	}
+} */

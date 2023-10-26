@@ -1,4 +1,4 @@
-![image_2023-10-26_11-12-52](https://github.com/s-alyona-a/NLP_3d_course_project/assets/90269742/6cfdbb2a-7dd9-4b34-a0ec-9955b5e6f296)# Поиск по корпусу
+# Поиск по корпусу
 Сайт: https://for0study0projects.pythonanywhere.com
 
 **1. Preprocessing**

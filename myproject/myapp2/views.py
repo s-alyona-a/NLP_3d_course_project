@@ -7,12 +7,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 
 def search_func(search_first):
+    sentences_objects = Sentences.objects.all()
+    words_objects = Words.objects.all()
     if search_first[0]!='"' and search_first[-1]!='"':
         res = []
         search = search_first.split()
         text_id = 1
-        while text_id <= Words.objects.aggregate(Max('nmb_text'))['nmb_text__max']:
-            df = Words.objects.filter(nmb_text=text_id)
+        while text_id <= words_objects.aggregate(Max('nmb_text'))['nmb_text__max']:
+            df = words_objects.filter(nmb_text=text_id)
             sent_ind = 1
             all = []
             spis = {}
@@ -49,7 +51,6 @@ def search_func(search_first):
                         if '+' in search[srch_i]:
                             d = search[srch_i].split('+')
                             if m.parse(d[0])[0].normal_form==lemmas[word_i] and d[1]==tags[word_i]:
-                                # spis_n.append(lemmas[word_i])
                                 spis_n.append(words[word_i])
                                 srch_i+=1
                             else:
@@ -57,7 +58,6 @@ def search_func(search_first):
                                 srch_i = 0
                                 spis_n = []
                         elif lemmas[word_i] == lem:
-                            # spis_n.append(lemmas[word_i])
                             spis_n.append(words[word_i])
                             srch_i+=1
                         elif tags[word_i] == search[srch_i]:
@@ -79,9 +79,9 @@ def search_func(search_first):
                         spis_n = []
                     word_i+=1
                 sent_ind+=1   
-            all = [[spis[k], Sentences.objects.filter(nmb_text=text_id).filter(nmb_sent=k).values_list('sentence', flat=True)[0]] for k in spis.keys()]
+            all = [[spis[k], sentences_objects.filter(nmb_text=text_id).filter(nmb_sent=k).values_list('sentence', flat=True)[0]] for k in spis.keys()]
             if all != []:
-                res.append([all, Sentences.objects.filter(nmb_text=text_id).values_list('author', flat=True)[0], Sentences.objects.filter(nmb_text=text_id).values_list('title', flat=True)[0]])
+                res.append([all, sentences_objects.filter(nmb_text=text_id).values_list('author', flat=True)[0], sentences_objects.filter(nmb_text=text_id).values_list('title', flat=True)[0]])
             text_id+=1
             spis = {}
 
@@ -89,8 +89,8 @@ def search_func(search_first):
         res = []
         search = (search_first[1:-1]).split()
         text_id = 1
-        while text_id <= Words.objects.aggregate(Max('nmb_text')).get('nmb_text__max'):
-            df = Words.objects.filter(nmb_text=text_id)
+        while text_id <= words_objects.aggregate(Max('nmb_text')).get('nmb_text__max'):
+            df = words_objects.filter(nmb_text=text_id)
             sent_ind = 0
             all = []
             spis = {}
@@ -133,9 +133,9 @@ def search_func(search_first):
                         spis_n = []
                     word_i+=1
                 sent_ind+=1
-            all = [[spis[k], Sentences.objects.filter(nmb_text=text_id).filter(nmb_sent=k).values_list('sentence', flat=True)[0]] for k in spis.keys()]
+            all = [[spis[k], sentences_objects.filter(nmb_text=text_id).filter(nmb_sent=k).values_list('sentence', flat=True)[0]] for k in spis.keys()]
             if all != []:
-                res.append([all, Sentences.objects.filter(nmb_text=text_id).values_list('author', flat=True)[0], Sentences.objects.filter(nmb_text=text_id).values_list('title', flat=True)[0]])
+                res.append([all, sentences_objects.filter(nmb_text=text_id).values_list('author', flat=True)[0], sentences_objects.filter(nmb_text=text_id).values_list('title', flat=True)[0]])
             text_id+=1
             spis = {}
     return res

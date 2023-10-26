@@ -4,7 +4,6 @@ body{
   background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
   height: 100vh;
   font-family: 'Heebo', sans-serif;
-
 }
 .card{
 	border: none;
@@ -31,18 +30,9 @@ input.form-control:focus{
 	font-size: 13px;
 	color: #9CA1A4;
 }
-.price{
-	background: #F5F8FD;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
 .flex-row{
 	border: 1px solid #F2F2F4;
 	border-radius: 10px; 
-	margin: 0 1px 0;
-}
-.flex-column p{
-	font-size: 14px;
 }
 span.mb-2{
 	font-size: 12px;
@@ -50,9 +40,4 @@ span.mb-2{
 }
 h5 span{
 	color: #869099;
-}
-.search_title{
-  font-size: 22px;
-  font-weight: 900;
-  color: #ff8b88;
 }

@@ -141,13 +141,14 @@ def search_func(search_first):
     return res
 
 def search(request):
+    user_agent = request.META.get('HTTP_USER_AGENT')
     context = {}
     if request.method == 'POST':
-        cache.delete('my_data')
+        cache.delete(f'user_data_{user_agent}')
         query = request.POST.get('query')
         sentences_res = search_func(query)
         sentences = Paginator(sentences_res, 10)
-        cache.set('my_data', [sentences, query], 60*30)
+        cache.set(f'user_data_{user_agent}', [sentences, query], 60*30)
         page = request.GET.get('page')
         context['all_sentences'] = sentences.get_page(page)
         context['query'] = query
@@ -161,8 +162,8 @@ def search(request):
         context['items_page'] = items_page
     elif request.method == 'GET':       
         if request.GET.get('page'):
-            sentences = cache.get('my_data')[0]
-            query = cache.get('my_data')[1]
+            sentences = cache.get(f'user_data_{user_agent}')[0]
+            query = cache.get(f'user_data_{user_agent}')[1]
             page = request.GET.get('page')
             context['all_sentences'] = sentences.get_page(page)
             context['query'] = query
@@ -175,5 +176,5 @@ def search(request):
             context['items_page'] = items_page
         else:
             context['query'] = None
-            cache.delete('my_data')
+            cache.delete(f'user_data_{user_agent}')
     return render(request, 'search_results.html', context=context)

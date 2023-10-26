@@ -96,16 +96,15 @@
               <div class="row mt-2 justify-content-between">
                 {% for sentence in sentences.0 %}
                   {% with word=sentence.0 text=sentence.1 author=sentences.1 book_name=sentences.2 %}                               
-                  <div class="col-9 mt-1 justify-content-start">{{ text|highlight_text:word }}</div>   
+                  <div class="col-9 pt-2">{{ text|highlight_text:word }}</div>   
                   {% endwith %}
                 {% endfor %}   
-                <div class="col-3 justify-content-end align-middle ">
-                  <div class="price pt-3 pl-3" style="justify-content: center; align-items: center; background-color: #fcffd7">
-                    <span class="mb-2"></span>
+                <div class="col-3 pt-2" style="background-color: #fcffd7; vertical-align: top; height: 100%">
+                    <span class="pb-2"></span>
                     {% for w in sentences|unique_words %}
-                      <h5><span class="mb-2 align-middle align-items-center" style="justify-content: center; align-items: center; display: flex;font-size: 18px; color: #5878FF">{{ w }}</span></h5>
+                      <h5><a style="justify-content: center; text-align: center; font-size: 18px; color: #5878FF">{{ w }}</a></h5>
                     {% endfor %}
-                  </div>
+                  <!-- </div> -->
                 </div> 
               </div> 
               <br>

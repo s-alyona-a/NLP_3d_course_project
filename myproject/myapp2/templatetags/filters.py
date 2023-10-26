@@ -10,7 +10,7 @@ def highlight_text(text, search):
     for s in search:
         try:
             s = s.replace('ё', 'е')
-            word_pattern = '(\s)+'.join(['[,|!|?|;|:|.|-|—]*(/s)*(/t)*'+i+'(/s)*(/t)*[,|!|?|;|:|.|-|—]*' for i in s.split()])
+            word_pattern = '(\s)+'.join(['\\b[,|!|?|;|:|.|-|—]*(/s)*(/t)*'+i+'(/s)*(/t)*[,|!|?|;|:|.|-|—]*\\b' for i in s.split()])
             pattern = re.compile(word_pattern)
             matches = list(pattern.search(text.lower()).span())
             text = list(text)

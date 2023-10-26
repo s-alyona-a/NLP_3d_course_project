@@ -141,14 +141,14 @@ def search_func(search_first):
     return res
 
 def search(request):
+    ip_address = request.META.get('REMOTE_ADDR')
     user_agent = request.META.get('HTTP_USER_AGENT')
     context = {}
     if request.method == 'POST':
-        cache.delete(f'user_data_{user_agent}')
         query = request.POST.get('query')
         sentences_res = search_func(query)
         sentences = Paginator(sentences_res, 10)
-        cache.set(f'user_data_{user_agent}', [sentences, query], 60*30)
+        cache.set(f'user_data_{ip_address}_{user_agent}_{query}', [sentences], 60*30)
         page = request.GET.get('page')
         context['all_sentences'] = sentences.get_page(page)
         context['query'] = query
@@ -158,23 +158,26 @@ def search(request):
             items_page = sentences.page(1)
         except EmptyPage:
             items_page = sentences.page(sentences.num_pages)
-
+        context['page'] = 1
         context['items_page'] = items_page
-    elif request.method == 'GET':       
-        if request.GET.get('page'):
-            sentences = cache.get(f'user_data_{user_agent}')[0]
-            query = cache.get(f'user_data_{user_agent}')[1]
-            page = request.GET.get('page')
-            context['all_sentences'] = sentences.get_page(page)
-            context['query'] = query
+    elif request.method == 'GET':
+        if request.GET.get('query'):
+            query = request.GET.get('query').split('/?')[0]
+            page = request.GET.get('query').split('/?')[1][5:]      
             try:
-                items_page = sentences.page(page)
-            except PageNotAnInteger:
-                items_page = sentences.page(1)
-            except EmptyPage:
-                items_page = sentences.page(sentences.num_pages)
-            context['items_page'] = items_page
+                page = int(page)
+                sentences = cache.get(f'user_data_{ip_address}_{user_agent}_{query}')[0]
+                context['all_sentences'] = sentences.get_page(page)
+                context['query'] = query
+                try:
+                    items_page = sentences.page(page)
+                except PageNotAnInteger:
+                    items_page = sentences.page(1)
+                except EmptyPage:
+                    items_page = sentences.page(sentences.num_pages)
+                context['items_page'] = items_page
+            except:
+                context['query'] = None
         else:
             context['query'] = None
-            cache.delete(f'user_data_{user_agent}')
     return render(request, 'search_results.html', context=context)

@@ -10,7 +10,8 @@
    В итоге, мы получили 123 текстовых файла 'text_i.txt' с записанными в них предложениями и файл 'words.csv' с размеченными словами.
 
    ![image](https://github.com/s-alyona-a/NLP_3d_course_project/assets/90251910/1bcd36f3-d737-4a22-850b-c3441a2e33c0)
-   ![image](https://github.com/s-alyona-a/NLP_3d_course_project/assets/90251910/1f4ea937-19b7-48b4-b36b-72a72828fb24)
+   
+   ![image](https://github.com/s-alyona-a/NLP_3d_course_project/assets/90251910/fc15849e-623e-43f6-a792-f7dc90d9fe9b)
 
 **2. Search function**
 

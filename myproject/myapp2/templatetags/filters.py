@@ -6,9 +6,19 @@ register = template.Library()
 
 @register.filter
 def highlight_text(text, search):
-    for i in search:
-        highlighted = re.sub(r'\b'+i+r'\b', '<span style="background-color: #f9ffb7; font-weight: bold; font-style: italic;">{}</span>'.format(i), text, flags=re.IGNORECASE)
-        text = highlighted
+    text = text.replace('ё', 'е')
+    for s in search:
+        try:
+            s = s.replace('ё', 'е')
+            word_pattern = '(\s)+'.join(['[,|!|?|;|:|.|-|—]*(/s)*(/t)*'+i+'(/s)*(/t)*[,|!|?|;|:|.|-|—]*' for i in s.split()])
+            pattern = re.compile(word_pattern)
+            matches = list(pattern.search(text.lower()).span())
+            text = list(text)
+            text[matches[0]] = '<span style="background-color: #f9ffb7; font-weight: bold; font-style: italic;">'+text[matches[0]]
+            text[matches[1]-1] = text[matches[1]-1]+'</span>'
+            text = ''.join(text)
+        except:
+            continue
     return mark_safe(text)
 
 @register.filter

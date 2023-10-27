@@ -5,6 +5,7 @@ m = MorphAnalyzer()
 from django.db.models import Max
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
+import string
 
 def search_func(search_first):
     sentences_objects = Sentences.objects.all()

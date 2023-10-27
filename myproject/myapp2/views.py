@@ -18,7 +18,7 @@ def search_func(search_first):
         if i in list(string.punctuation):
             return 'wrong_query'
     for i in search_first:
-        if i in list(string.punctuation) and i!='"' and i!='+' and i!="'":
+        if i in list(string.punctuation) and i!='"' and i!='+' and i!="'" and i!="-":
             return 'wrong_query'
     if search_first[0]!='"' and search_first[-1]!='"':
         res = []

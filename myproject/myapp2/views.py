@@ -9,6 +9,16 @@ from django.core.cache import cache
 def search_func(search_first):
     sentences_objects = Sentences.objects.all()
     words_objects = Words.objects.all()
+    if len(search_first)==1 and search_first in list(string.punctuation):
+            return 'wrong_query'
+    if search_first == '':
+        return 'wrong_query'
+    for i in search_first.split():
+        if i in list(string.punctuation):
+            return 'wrong_query'
+    for i in search_first:
+        if i in list(string.punctuation) and i!='"' and i!='+' and i!="'":
+            return 'wrong_query'
     if search_first[0]!='"' and search_first[-1]!='"':
         res = []
         search = search_first.split()
@@ -146,20 +156,17 @@ def search(request):
     context = {}
     if request.method == 'POST':
         query = request.POST.get('query')
-        sentences_res = search_func(query)
-        sentences = Paginator(sentences_res, 10)
-        cache.set(f'user_data_{ip_address}_{user_agent}_{query}', [sentences], 60*30)
-        page = request.GET.get('page')
-        context['all_sentences'] = sentences.get_page(page)
         context['query'] = query
-        try:
-            items_page = sentences.page(page)
-        except PageNotAnInteger:
+        sentences_res = search_func(query)
+        if  'wrong_query' in sentences_res:
+            context['all_sentences'] = sentences_res
+        else:
+            sentences = Paginator(sentences_res, 10)
+            cache.set(f'user_data_{ip_address}_{user_agent}_{query}', [sentences], 60*30)
+            context['all_sentences'] = sentences.get_page(1)
             items_page = sentences.page(1)
-        except EmptyPage:
-            items_page = sentences.page(sentences.num_pages)
-        context['page'] = 1
-        context['items_page'] = items_page
+            context['page'] = 1
+            context['items_page'] = items_page
     elif request.method == 'GET':
         if request.GET.get('query'):
             query = request.GET.get('query').split('/?')[0]

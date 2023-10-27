@@ -7,9 +7,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 import string
 
+sentences_objects = Sentences.objects.all()
+words_objects = Words.objects.all()
 def search_func(search_first):
-    sentences_objects = Sentences.objects.all()
-    words_objects = Words.objects.all()
     if len(search_first)==1 and search_first in list(string.punctuation):
         return 'wrong_query'
     if search_first == '':

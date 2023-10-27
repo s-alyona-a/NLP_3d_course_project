@@ -67,7 +67,31 @@
     </div>
   </div>
 
-  {% if all_sentences|length > 0 %}
+
+  
+  {% if all_sentences == 'wrong_query' %}
+    <p class="text-center mt-5 justify-content-center" style="font-size: 36px; font-weight: 900; letter-spacing: 2px; text-decoration: none;">
+      <a href="{% url 'search' %}" style="color: #212529; text-decoration: none;" name="main_page">Поиск по корпусу</a>
+    </p>
+    
+    <div class="container d-flex justify-content-center">
+      <div class="card mt-2 p-4" style="width: 85%; border-radius: 20px;">
+
+        <form action="" method="POST" >
+        {% csrf_token %}
+          <div class="search" style="display:flex; align-items: center; justify-content: center;">
+            <i class="fa fa-search" style="float: left; width: 10x"></i>
+            <input type="text" class="m-2 form-control" name="query" placeholder="{{ query }}" required>
+            <button type="button" class="m-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Помощь</button>
+            <input type="submit" class="btn btn-dark" value="Search">
+          </div>
+        </form>
+
+        <span class="text mb-4" style="font-size: 16px">Введен некорректный запрос. Пожалуйста, ознакомьтесь с инструкцией (кнопка "Помощь").</span>
+      </div>
+    </div>
+
+  {% elif all_sentences|length > 0 %}
   
     <p class="text-center mt-5 justify-content-center" style="font-size: 36px; font-weight: 900; letter-spacing: 2px; text-decoration: none;">
     <a href="{% url 'search' %}" style="color: #212529; text-decoration: none;" name="main_page">Поиск по корпусу</a>
@@ -163,7 +187,7 @@
         <span class="text mb-4" style="font-size: 16px">К сожалению, по Вашему запросу ничего не найдено.</span>
       </div>
     </div>
-
+  
   {% else %}
   <div class="row align-items-center" style="min-height: 100vh">
     <div class="col">

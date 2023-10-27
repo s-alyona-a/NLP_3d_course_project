@@ -11,7 +11,7 @@ def search_func(search_first):
     sentences_objects = Sentences.objects.all()
     words_objects = Words.objects.all()
     if len(search_first)==1 and search_first in list(string.punctuation):
-            return 'wrong_query'
+        return 'wrong_query'
     if search_first == '':
         return 'wrong_query'
     for i in search_first.split():
